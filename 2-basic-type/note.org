@@ -1,0 +1,24 @@
+#+TITLE:2 Basic Type
+
+* Type
+type = set
+
+* Primitive Type
+** boolean
+** number
+** string
+
+* Alias
+just alias, still same as original
+
+* Array
+** T[]
+vary size
+single type
+
+* Tuple
+** [A, B]
+fixed size
+multiple type
+
+* Structure

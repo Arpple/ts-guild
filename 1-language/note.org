@@ -1,0 +1,122 @@
+#+TITLE:1 Why Typescript?
+What is TS and why should we use it ?
+* Why TypeScript (honest)
+I can't choose my favorite
+- team > company > client
+people fear of unknown
+
+* What is
+** js
+language use in web browser
+widely used
+is okay...
+- easy functional
+- prototype/structure based
+- tooling
+
+
+** Node.js
+execute js on console = outside browser = server
+remove browser stuff
+add server stuff
+- careful of your js file, where can it run
+
+** NPM
+** Deno ?
+** typescript
+js with type
+
+on top language
+- marketing as superset
+- can use everything js can
+
+compile to js
+- back to browser node.js js
+
+gradual typing
+- add type where you want to
+
+
+* Why?
+** js
+widely used
+- browser, node = FE/BE
+- people
+ecosystem
+- tool ide lib
+- lots of things to support you
+
+** Type
+document
+less bug
+- catch at compile time
+ide
+- jump
+- find with ref
+- refactor
+
+* Why not?
+** js
+java
+- class
+- throw exception
+
+diverse community
+- lots of style
+- lot of way to achieve same thing, good/bad practices
+
+** TS Type
+throw
+stupid
+- babysit the compiler
+no runtime type
+- code decide based on type
+- switch by type
+
+** Careful !
+npm
+- lib use lib use lib use lib
+- build on your machine, with internet/file access
+
+libs
+- many libs, but quality
+
+** Rescript!
+
+
+* Why TS
+** code as documentation
+#+begin_src js
+const fn = (data) => {...}
+const result = fn({}).something
+#+end_src
+
+#+begin_src typescript
+type Data = { x: number, y: number }
+
+const fn = (data: Data): string => {...}
+const result = fn({ x, y }).toUpperCase()
+#+end_src
+
+** addon feature
+*** import/export
+*** enum
+
+* Be aware of !
+** JS community is diverse
+** lots lib but not good
+** or good but only DO MY WAY
+*** react
+*** jest
+
+** ME
+
+* Ecosystem and Terminology
+** Js
+** Typescript
+
+** Browser
+** Node.js
+
+** NPM
+*** yarn, pnpm
