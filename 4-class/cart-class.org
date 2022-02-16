@@ -1,0 +1,290 @@
+* text book class
+** example
+#+begin_src typescript
+class Item {
+  constructor(
+    private product: string,
+    private price: number
+  ) {}
+
+  public getProduct(): string {
+    return this.product
+  }
+
+  public getPrice(): number {
+    return this.price
+  }
+}
+
+class Cart {
+  private items: Item[]
+  private total: number
+
+  constructor() {
+    this.items = []
+    this.total = 0
+  }
+
+  private updateTotal() {
+    this.total = this.items.reduce((sum, item) => sum + item.getPrice(), 0)
+  }
+
+  public addItem(item: Item): this {
+    this.items.push(item)
+    this.updateTotal()
+    return this
+  }
+}
+#+end_src
+
+** mutate
+#+begin_src typescript
+const today = Carbon::new()
+const tomorrow = today.add(1)
+console.log(today)
+
+const person = new Person(name = 'John', age = 30)
+person.name // 'John'
+person.age // 30
+
+person.changeName('Joe')
+
+person.name // 'Joe'
+person.age // 31
+#+end_src
+
+- what if no debug person.age
+- what if in concurent process / thread
+
+** immutable
+#+begin_src typescript
+class Cart {
+  private items: Item[]
+  private total: number
+
+  public static create() {
+    return new Cart([])
+  }
+
+  private constructor(items: Item[]) {
+    this.items = items
+    this.total = this.calculateTotal()
+  }
+
+  private calculateTotal(): number {
+    return this.items.reduce((sum, item) => sum + item.getPrice(), 0)
+  }
+
+  public addItem(item: Item): Cart {
+    return new Cart([...this.items, item])
+  }
+}
+#+end_src
+
+#+begin_src typescript
+const person = new Person(name = 'John', age = 30)
+person.name // 'John'
+person.age // 30
+
+const joe = person.changeName('Joe')
+
+joe.name // 'Joe'
+joe.age // 31
+
+person.name // 'John'
+person.age // 30
+#+end_src
+
+** add more function
+#+begin_src typescript
+class Cart {
+  // ...
+
+  public show() {
+    const itemString = (item: Item) => {
+      return `${item.getProduct()} - ${item.getPrice()} THB`
+    }
+
+    const str = [
+      ...this.items.map(itemString),
+      `total: ${this.total} THB`,
+    ].join('\n')
+
+    console.log(str)
+  }
+}
+#+end_src
+
+** to or from
+#+begin_src typescript
+class Order {
+  constructor(items: Item[])
+}
+
+cart.toOrder()
+new Order(cart.items)
+#+end_src
+
+** cart depend order?
+imagine
+#+begin_src typescript
+class User {
+  private id;
+
+  public getProfile() // from id
+  public getCart() // from id
+  public getOrder() // from id
+}
+#+end_src
+
+cart don't need anything from order
+order need items from cart, but can't
+
+#+begin_src typescript
+class Cart {
+  public readonly items: Item[]
+  public readonly total: number
+
+  // ...
+}
+
+class CartUI {
+  public show(cart: Cart) {
+    const itemString = (item: Item) => {
+      return `${item.getProduct()} - ${item.getPrice()} THB`
+    }
+
+    const str = [
+      ...cart.items.map(itemString),
+      `total: ${cart.total} THB`,
+    ].join('\n')
+
+    console.log(str)
+  }
+}
+
+new Order(cart.items)
+#+end_src
+
+* convinient
+** chain in type
+#+begin_src typescript
+[]
+  .map()
+  .filter()
+  .slice()
+  .join()
+  .toUpperCase()
+#+end_src
+
+#+begin_src typescript
+const cart = new Cart()
+  .addItem(a)
+  .addItem(b)
+  // .toOrder()
+
+const order = new Order(cart)
+#+end_src
+
+** extension
+#+begin_src typescript
+const sliceHead = (list: []) => list.slice(1)
+
+[]
+  .slice(1)
+  .sliceHead() // !!
+#+end_src
+
+*** hack
+modify prototype
+tell compiler
+
+*** wrapper type
+#+begin_src typescript
+class Collection {
+  constructor(public value: []) {
+  }
+
+  public slice(index) {
+    return this.value.slice(index)
+  }
+
+  public sliceHead() {
+    return this.slice(1)
+  }
+}
+
+new Collection([])
+  .slice(1)
+  .sliceHead()
+  .value
+#+end_src
+
+wrap and unwrap
+extend ALL the way
+
+Colleciton->pluck
+
+** pipe
+#+begin_src typescript
+const pipe = (first, ...fns) => {
+  return fns.reduce(
+    (result, fn) => fn(result),
+    first
+  )
+}
+
+const pipe = (first, ...fns) => {
+  let result = first
+  for (const fn of fns) {
+    result = fn(result)
+  }
+  return result
+}
+
+const result = pipe(
+  [],
+  (list) => list.map(),
+  (filter) => list.filter(),
+  (list) => sliceEdge(list),
+  (list) => list.reduce()
+)
+
+const order = pipe(
+  new Cart(),
+  (cart) => cart.addItem(a)
+  (cart) => cart.addItem(b)
+  (cart) => new Order(cart)
+)
+#+end_src
+
+#+begin_src typescript
+class Cart {
+  public static addItem(item: Item, cart: Cart): Cart {
+    return new Cart([...cart.items, item])
+  }
+}
+
+const order = pipe(
+  Cart.create(),
+  Cart.addItem(a)
+  Cart.addItem(b)
+  Order.create
+)
+#+end_src
+
+#+begin_src typescript
+const log = (thing) => {
+  console.log(thing)
+  return thing
+}
+
+const order = pipe(
+  Cart.create(),
+  log,
+  Cart.addItem(a)
+  Cart.addItem(b)
+  log,
+  Order.create
+)
+#+end_src
