@@ -1,36 +1,59 @@
-type Item = {
-	product: string,
-	price: number,
+export enum Status {
+	Completed,
+	Processing,
+	Open,
 }
 
-type Cart = {
-	customer: string,
-	items: Item[],
-	total: number,
+// type Status = 'completed' | 'processing'
+
+export type StatusUpdate = {
+	orderId: number,
+	status: Status,
 }
 
-const potato: Item = {
-	product: 'potato',
-	price: 100,
-}
+type NonComplete = Status.Processing | Status.Open
 
-const create = (customer: string): Cart => {
-	return {
-		customer,
-		items: [],
-		total: 0,
+
+
+// const update: StatusUpdate = {
+// 	status: Status.Completed
+// }
+
+export namespace CartEx {
+	export type Item = {
+		product: string,
+		price: number,
 	}
-}
 
-const calculateTotal = (items: Item[]): number => {
-	return items.reduce((sum, item) => sum + item.price, 0)
-}
+	export type Cart = {
+		customer: string,
+		items: Item[],
+		total: number,
+	}
 
-const addItem = (cart: Cart, item: Item): Cart => {
-	const items = [...cart.items, item]
-	return {
-		...cart,
-		items,
-		total: calculateTotal(items),
+	export const potato: Item = {
+		product: 'potato',
+		price: 100,
+	}
+
+	export const create = (customer: string): Cart => {
+		return {
+			customer,
+			items: [],
+			total: 0,
+		}
+	}
+
+	const calculateTotal = (items: Item[]): number => {
+		return items.reduce((sum, item) => sum + item.price, 0)
+	}
+
+	export const addItem = (cart: Cart, item: Item): Cart => {
+		const items = [...cart.items, item]
+		return {
+			...cart,
+			items,
+			total: calculateTotal(items),
+		}
 	}
 }

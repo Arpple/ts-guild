@@ -44,7 +44,7 @@ const nums: number[] = [1, 2, -3, 0.0001, 23, 1, ]
 const emptyArr: number[] = []
 const names: string[] = ['a', 'b', 'c']
 
-const mixed: number[] = [1, 'a', 2]
+// const mixed: number[] = [1, 'a', 2]
 
 const nested: number[][] = [[1, 2, 3], [4], [1, 2, 3]]
 
