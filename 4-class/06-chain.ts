@@ -44,5 +44,5 @@ const pipe = (start: any, ...fns: any[]) => {
 const add = (x) => x = 1
 const call = (fn, x) => fn(x)
 
-call(add, 10)
 call((x) => add(x), 10)
+call(add, 10)

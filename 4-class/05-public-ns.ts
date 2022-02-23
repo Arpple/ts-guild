@@ -27,9 +27,3 @@ export namespace Cart {
 // no local-static
 // no need constructor
 
-// no enforce encapsulation
-
-const hackCart: Cart.T = {
-	items: [],
-	total: 1000,
-}

@@ -31,17 +31,11 @@ console.log(cart.getTotal()) // 0
 
 
 
-const person = new Person(name = 'John', age = 30)
-person.name // 'John'
-person.age // 30
-
-const joe = person.changeName('Joe')
-
-person.name // 'John'
-person.age // 30
-
-joe.name // 'Joe'
-joe.age // 31
+//
+const today = new Day() // thursday
+const tomorrow = today.add(1) // friday
+console.log(today) // thursday
+console.log(tomorrow) // friday
 
 
 // bonus

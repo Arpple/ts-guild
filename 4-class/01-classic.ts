@@ -26,24 +26,28 @@ export class Cart {
 // - blackbox
 // - hide implementation
 //
+//
 // - keep state private
 // - manage state in class
 // - public method api
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 // mutation and side effect
 
 const today = new Day() // thursday
-const tomorrow = today.add(1) // friday
+const tomorrow = today.clone().add(1) // friday
 console.log(today)
 
-
-const person = new Person(name = 'John', age = 30)
-person.name // 'John'
-person.age // 30
-
-person.changeName('Joe')
-
-person.name // 'Joe'
-person.age

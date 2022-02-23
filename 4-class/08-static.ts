@@ -21,6 +21,3 @@ export class Cart {
 		}
 	}
 }
-
-// inheritance
-type A = number & string

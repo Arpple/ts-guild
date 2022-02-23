@@ -60,6 +60,8 @@ const tap = (fn) => (x) => {
 
 const result = pipe(
 	Cart.create(),
+	tap(console.log),
 	CartEx.addMultipleItem([10, 20]),
+	tap(console.log),
 	Cart.addItem(30),
 )

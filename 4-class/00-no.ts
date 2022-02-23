@@ -24,13 +24,29 @@ export class Cart {
 	}
 }
 
+
+
+
+
+
+
 function main() {
 	const cart = new Cart()
 	const items = [10, 20, 30]
-	const total = cart.getItems().reduce((sum, item) => item + sum, 0)
 	cart.setItems(items)
+	const total = cart.getItems().reduce((sum, item) => item + sum, 0)
 	cart.setTotal(total)
 }
+
+
+const c = { items: [], total: 0 }
+
+
+
+
+
+
+
 
 
 function controller() {
