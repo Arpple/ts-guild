@@ -1,23 +1,9 @@
 * text book class
+
 ** example
 #+begin_src typescript
-class Item {
-  constructor(
-    private product: string,
-    private price: number
-  ) {}
-
-  public getProduct(): string {
-    return this.product
-  }
-
-  public getPrice(): number {
-    return this.price
-  }
-}
-
 class Cart {
-  private items: Item[]
+  private items: number[]
   private total: number
 
   constructor() {
