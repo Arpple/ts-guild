@@ -1,0 +1,10 @@
+* IO
+** some function take long time just wait for result with no computation
+** (lib) make it async to allow next line execute without wait
+** to get result, use
+*** callback
+*** promise
+
+** if have =promise= can use =await= to unwrap
+** if use =await=, function need to be =async=
+** ==async== function always wrap return in ==promise==

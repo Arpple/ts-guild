@@ -1,5 +1,10 @@
 import { Magic } from "./magic"
 
+const x = Promise.resolve(Promise.resolve(1))
+
+const xP = x.then((a) => a)
+const xPP = x.then((a) => Promise.resolve(a))
+
 const all = async () => {
 	const todoList = ['A', 'B', 'C']
 	const resultPromiseList = todoList.map((todo) => Magic.ioPromise(todo)) // [P=>A, P=>B, P=>C]
