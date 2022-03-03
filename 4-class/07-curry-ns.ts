@@ -6,6 +6,10 @@ export namespace Cart {
 		readonly total: number,
 	}
 
+	export type AnotherT = {
+		readonly value: number,
+	}
+
 	export const create = (): T => {
 		return {
 			items: [],
@@ -17,7 +21,7 @@ export namespace Cart {
 		return items.reduce((sum, item) => sum + item, 0)
 	}
 
-	export const addItem = (item: number) => (cart: T): T => {
+	export const addItem = (item: number, cart: T): T => {
 		const items = [...cart.items, item]
 		return {
 			items,
@@ -26,13 +30,13 @@ export namespace Cart {
 	}
 }
 
+
 const cart = pipe(
 	Cart.create(),
 	Cart.addItem(10),
 	Cart.addItem(20),
 	Cart.addItem(30),
 )
-
 
 namespace CartEx {
 	export const addMultipleItem = (items: number[]) => (cart: Cart.T): Cart.T => {
@@ -43,6 +47,9 @@ namespace CartEx {
 	}
 }
 
+const cart = Cart.create()
+Cart.addItem(10)(cart)
+CartEx.addMultipleItem([10, 20])(cart)
 
 const cartEx = pipe(
 	Cart.create(),
