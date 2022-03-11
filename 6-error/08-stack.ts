@@ -34,9 +34,6 @@ const main = () => {
 	// fn()
 	// fnCatch()
 	// fnSelfThrow()
-	setInterval(() => {
-
-	})
 }
 
 
