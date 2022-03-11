@@ -1,12 +1,14 @@
 import { Magic } from "./magic"
 
+const n = Promise.resolve(1)
 const x = Promise.resolve(Promise.resolve(1))
 
 const xP = x.then((a) => a)
 const xPP = x.then((a) => Promise.resolve(a))
 
+
 const all = async () => {
-	const todoList = ['A', 'B', 'C']
+	const todoList = ['A', 'B', 'C'] // [A, B, C]
 	const resultPromiseList = todoList.map((todo) => Magic.ioPromise(todo)) // [P=>A, P=>B, P=>C]
 	const resultListPromise = Promise.all(resultPromiseList) // P => [A, B, C]
 	const [A, B, C] = await resultListPromise
@@ -35,7 +37,8 @@ const sync = async () => {
 	console.log(result)
 }
 
-sync()
+concurrent()
+	.then(() => process.exit())
 
 
 

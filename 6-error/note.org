@@ -1,0 +1,3 @@
+* How to know software is correct
+** proof everything is correct
+*** use compiler to proof syntax, and consistent of type

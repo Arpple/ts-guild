@@ -19,7 +19,7 @@ const single = async () => {
 
 async function f() {}
 
-single()
+// single()
 /*
 process ->>
 single     : p1------------x1

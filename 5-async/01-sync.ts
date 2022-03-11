@@ -1,4 +1,4 @@
-import { Magic } from "./magic";
+import { Magic } from "./magic"
 
 const A = Magic.func('machine learning A')
 const B = Magic.func('ML B')

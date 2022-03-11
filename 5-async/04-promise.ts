@@ -21,7 +21,7 @@ const single = () => {
 	})
 }
 
-single()
+// single()
 /*
 process ->>
 A       : xPA-------xA
@@ -29,14 +29,14 @@ PA.then :    ---------A
 B       :    xPB---------xB
 PD.then :       -----------B
 PA.then :    ---------~A
-        : =================
+        : ==================
 */
 
 
 const sync = () => {
-	const promiseA = Magic.ioPromise('A')
-	const promiseUseA = promiseA.then((A) => console.log('A', A))
-	const promiseB = promiseUseA.then(() => Magic.ioPromise('B'))
+	// const promiseA = Magic.ioPromise('A')
+	// const promiseUseA = promiseA.then((A) => console.log('A', A))
+	// const promiseB = promiseUseA.then(() => Magic.ioPromise('B'))
 
 	// or
 	Magic.ioPromise('A')
@@ -71,7 +71,7 @@ const concurrent = () => {
 	])
 
 	promiseABC.then(([A, B, C]) => {
-		console.log('use', A, C, C)
+		console.log('use', A, B, C)
 	})
 }
 
@@ -83,23 +83,23 @@ promiseA   : xpA-----------A
 promiseB   :    xpB---------B
 promiseC   :       xpC--------C
 promiseABC :          xpABC
-.then      :               ----ADF
+.then      :               ----ABC
            : =====================
 */
 
 
 
 const syncBut = () => {
-	Magic.ioPromise('A')
-		.then((A) => {
-			Magic.ioPromise('B' + A)
-				.then((B) => {
-					Magic.ioPromise('C' + A + B)
-						.then((C) => {
-							console.log('use', A, B, C)
-						})
-				})
-		})
+	// Magic.ioPromise('A')
+	// 	.then((A) => {
+	// 		Magic.ioPromise('B' + A)
+	// 			.then((B) => {
+	// 				Magic.ioPromise('C' + A + B)
+	// 					.then((C) => {
+	// 						console.log('use', A, B, C)
+	// 					})
+	// 			})
+	// 	})
 
 	const aP = Magic.ioPromise('A')
 	const bP = aP.then((A) => Magic.ioPromise('B' + A))
@@ -108,4 +108,4 @@ const syncBut = () => {
 	Promise.all([aP, bP, cP]).then(([A, B, C]) => console.log('use', A, B, C))
 }
 
-// syncBut()
+syncBut()
