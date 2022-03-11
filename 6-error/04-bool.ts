@@ -25,7 +25,6 @@ namespace Account {
 		toAcc.balance += amount
 		return true
 	}
-
 }
 
 const isNumber = (value: any): value is number => {

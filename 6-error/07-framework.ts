@@ -34,10 +34,9 @@ namespace Account {
 		fromAcc.balance -= amount
 		toAcc.balance += amount
 	}
-
 }
 
-export class NotFoundError extends Error {}
+class NotFoundError extends Error {}
 class ValidationError extends Error {}
 
 const isNumber = (value: any): value is number => {

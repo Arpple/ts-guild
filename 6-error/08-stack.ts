@@ -1,7 +1,6 @@
 export const error = () => {
 	const somethingwronghere = 1 + 1
 	throw new Error('invalid')
-	// throw 'invalid'
 }
 
 const errorNotThrow = () => {
@@ -32,9 +31,12 @@ const fnSelfThrow = () => {
 }
 
 const main = () => {
-	fn()
+	// fn()
 	// fnCatch()
 	// fnSelfThrow()
+	setInterval(() => {
+
+	})
 }
 
 

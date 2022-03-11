@@ -39,15 +39,15 @@ const isId = (value: any): value is string => {
 
 
 const controller = async () => {
-	const amount = Magic.input('amount')
+	const amount: unknown = Magic.input('amount')
 	if (!isNumber(amount))
 		return
 
-	const fromId = Magic.input('from')
+	const fromId: unknown = Magic.input('from')
 	if (!isId(fromId))
 		return
 
-	const toId = Magic.input('to')
+	const toId: unknown = Magic.input('to')
 	if (!isId(toId))
 		return
 

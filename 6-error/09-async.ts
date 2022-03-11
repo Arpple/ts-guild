@@ -1,5 +1,13 @@
 import { Magic } from "./magic";
 
+const getOrder = async () => {
+	try {
+		return await Magic.getDb('order')
+	} catch (err) {
+		//
+	}
+}
+
 const main = async () => {
 	Magic.asyncWithCallback((err, result) => {
 		if (err) {
@@ -13,14 +21,17 @@ const main = async () => {
 
 	Magic.asyncPromise()
 		.then((x) => x + 1)
-		.catch((err) => {
-			// handle
-		})
+		.then((x) => x + 1)
+		.then((x) => x + 1)
+		.then((x) => x + 1)
+		.catch(() => {})
 
 
 	try {
-		const result = Magic.asyncPromise()
+		return Magic.asyncPromise()
 	} catch (err) {
 		// handle
 	}
+
+	const order = await getOrder()
 }

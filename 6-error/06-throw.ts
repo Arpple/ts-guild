@@ -18,7 +18,7 @@ namespace Account {
 	/**
 	* @throws {NotFoundError}
 	* @throws {NotEnoughMoneyError}
-	* */
+	*/
 	export const transferMoney = async (fromId: string, toId: string, amount: number): Promise<void> => {
 		const fromAcc = await Magic.getDb(fromId)
 		if (!isAcc(fromAcc))
@@ -37,7 +37,7 @@ namespace Account {
 
 }
 
-export class NotFoundError extends Error {}
+class NotFoundError extends Error {}
 class ValidationError extends Error {}
 
 const isNumber = (value: any): value is number => {
