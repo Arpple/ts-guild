@@ -50,22 +50,52 @@ const isId = (value: any): value is string => {
 		&& value !== ''
 }
 
-const controller = async () => {
+// create somewhere and register in framework
+type TransferMoneyRequest = {
+	amount: number,
+	fromId: string,
+	toId: string,
+}
+
+const readInput = (): TransferMoneyRequest => {
+	const amount = Magic.input('amount')
+	if (!isNumber(amount))
+		throw new ValidationError(`amount should be number, found ${amount}`)
+
+	const fromId = Magic.input('from')
+	if (!isId(fromId))
+		throw new ValidationError(`from should be id string, found ${fromId}`)
+
+	const toId = Magic.input('to')
+	if (!isId(toId))
+		throw new ValidationError(`to should be id string, found ${toId}`)
+
+	return { amount, fromId, toId }
+}
+
+
+// use validated input
+const controller = async (input: TransferMoneyRequest) => {
 	try {
-		const amount = Magic.input('amount')
-		if (!isNumber(amount))
-			throw new ValidationError(`amount should be number, found ${amount}`)
-
-		const fromId = Magic.input('from')
-		if (!isId(fromId))
-			throw new ValidationError(`from should be id string, found ${fromId}`)
-
-		const toId = Magic.input('to')
-		if (!isId(toId))
-			throw new ValidationError(`to should be id string, found ${toId}`)
-
-		await Account.transferMoney(fromId, toId, amount)
+		await Account.transferMoney(input.fromId, input.toId, input.amount)
 	} catch (error) {
+		if (error instanceof Account.NotEnoughMoneyError) {
+			console.log('400', error)
+			return
+		}
+
+		throw error
+	}
+}
+
+
+
+const main = async () => {
+	try {
+		const input = readInput()
+		await controller(input)
+	} catch (error) {
+		// general error handler
 		if (error instanceof ValidationError) {
 			console.log('422', error)
 			return
@@ -76,11 +106,7 @@ const controller = async () => {
 			return
 		}
 
-		if (error instanceof Account.NotEnoughMoneyError) {
-			console.log('400', error)
-			return
-		}
-
-		throw error
+		console.log('500', error) // log user
+		console.log(error) // log to Sentry
 	}
 }

@@ -1,8 +1,31 @@
 import { Magic } from './magic'
 
-type Account = {
-	balance: number
+namespace Account {
+	type T = {
+		balance: number
+	}
+
+	const isAcc = (account: any): account is T => {
+		return account !== undefined
+	}
+
+	export const transferMoney = async (fromId: string, toId: string, amount: number) => {
+		const fromAcc = await Magic.getDb(fromId)
+		if (!isAcc(fromAcc))
+			return
+
+		const toAcc = await Magic.getDb(toId)
+		if (!isAcc(toAcc))
+			return
+
+		if (fromAcc.balance < amount)
+			return
+
+		fromAcc.balance -= amount
+		toAcc.balance += amount
+	}
 }
+
 
 const isNumber = (value: any): value is number => {
 	return typeof value === 'number'
@@ -12,26 +35,6 @@ const isNumber = (value: any): value is number => {
 const isId = (value: any): value is string => {
 	return typeof value === 'string'
 		&& value !== ''
-}
-
-const isAcc = (account: any): account is Account => {
-	return account !== undefined
-}
-
-const transferMoney = async (fromId: string, toId: string, amount: number) => {
-	const fromAcc = await Magic.getDb(fromId)
-	if (!isAcc(fromAcc))
-		return
-
-	const toAcc = await Magic.getDb(toId)
-	if (!isAcc(toAcc))
-		return
-
-	if (fromAcc.balance < amount)
-		return
-
-	fromAcc.balance -= amount
-	toAcc.balance += amount
 }
 
 
@@ -48,6 +51,6 @@ const controller = async () => {
 	if (!isId(toId))
 		return
 
-	await transferMoney(fromId, toId, amount)
+	await Account.transferMoney(fromId, toId, amount)
 	console.log('transfer success')
 }

@@ -16,32 +16,39 @@
 
 import { Magic } from './magic'
 
-type Account = {
-	balance: number
+namespace Account {
+	type T = {
+		balance: number
+	}
+
+	export const transferMoney = async (fromId: string, toId: string, amount: number) => {
+		const fromAcc = await Magic.getDb(fromId)
+		const toAcc = await Magic.getDb(toId)
+
+		if (fromAcc.balance < amount)
+			return
+
+		fromAcc.balance -= amount
+		toAcc.balance += amount
+	}
+
 }
-
-const transferMoney = async (fromId: string, toId: string, amount: number) => {
-	const fromAcc = await Magic.getDb(fromId)
-	const toAcc = await Magic.getDb(toId)
-
-	if (fromAcc.balance < amount)
-		return
-
-	fromAcc.balance -= amount
-	toAcc.balance += amount
-}
-
 
 const controller = async () => {
 	const amount = Magic.input('amount')
 	const fromId = Magic.input('from')
 	const toId = Magic.input('to')
 
-	await transferMoney(fromId, toId, amount)
+	await Account.transferMoney(fromId, toId, amount)
 	console.log('transfer success')
 }
 
-transferMoney('a', 'b', 100)
+// seperate
+// - UI / Logic
+
+
+Account.transferMoney('from', 'to', 100)
+
 
 // what can go wrong?
 // any
