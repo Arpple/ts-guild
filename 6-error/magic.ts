@@ -4,8 +4,7 @@ export namespace Magic {
 		to: { balance: 200 },
 	}
 
-	export const saveDb = (account: any): void => {}
-	export const saveDbAsync = async (value: any): Promise<void> => {}
+	export const saveDb = async (value: any): Promise<void> => {}
 
 	export const input = (name: string): any => {
 		return name === 'amount'

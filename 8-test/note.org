@@ -1,0 +1,56 @@
+* what is test?
+the process to check that software work correctly
+
+* what is correctly?
+build software to solve (business) problem
+
+* problem vs solution
+** Calculator
++ want to perform math operation
+- want to click on button
+- want to see result on top
+
+** Banking
++ want to transfer money
+- want to update balance in database
+
++ want to have multiple account
+- want to select accounts in dropdown list
+
++ want to send email to notify about update in account
+- want to send email to sendgrid with template id {112}
+
+** so
+prove problem (is solved)
+- business can work
+
+prove solution
+- your code work
+- may not solving problem (wrong or misunderstand the problem)
+- what if you need another solution (or refactor)
+
+* test pyramid
+    ^    <- manual
+   / \   <- E2E
+  /   \  <- System/Integration
+ /     \ <- unit
+
+** order by
+- big => small part it cover
+- high => low it cost (time to execute and maintain)
+
+
+   ^    <- recheck by human
+  / \   <- solution work
+ /   \  <- business work
+/     \ <- logic correct
+
+* when to write test
+before code TDD
+
+bug / change => misunderstand
+to write spec = to understand business
+
+** help to
+- testable
+- see usage

@@ -1,0 +1,38 @@
+* dependency
+** function
+in A() call B()
+A -> B
+
+B change = A change
+A change = B nothing
+use A = have B
+use B = nothing with A
+write A = wait B
+write B = nothing
+
+same as A -> B -> C
+
+more you depend, more headache
+
+#+begin_src js
+const B = (x, y) => x + y
+
+const A = (x, y) => `answer: ${B(x, y)}`
+#+end_src
+
+#+RESULTS:
+: undefined
+
+** file / module
+recompile
+
+** component
+BE/FE
+
+FE -> BE
+re deploy
+
+** logic
+
+* application
+Input -> Logic -> Output
