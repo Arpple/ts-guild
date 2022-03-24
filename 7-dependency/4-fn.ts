@@ -1,7 +1,8 @@
 import { Magic } from "../6-error/magic"
 
-namespace Account {
+export namespace Account {
 	export type T = {
+		id: string
 		balance: number
 	}
 
