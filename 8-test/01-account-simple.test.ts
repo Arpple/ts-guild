@@ -14,5 +14,16 @@
 	Then system should not allow
 */
 
+import { Account } from './account'
 
-it('pass', () => {})
+describe('transfer money', () => {
+	it('transfer from A to B', () => {
+		const a: Account.T = { balance: 100 }
+		const b: Account.T = { balance: 200 }
+
+		Account.transfer(a, b, 50)
+
+		expect(a.balance).toBe(50)
+		expect(b.balance).toBe(250)
+	})
+})
